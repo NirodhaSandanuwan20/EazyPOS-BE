@@ -9,4 +9,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableJpaRepositories
 public interface CustomerRepo extends JpaRepository<Customer, String> {
+
 }
