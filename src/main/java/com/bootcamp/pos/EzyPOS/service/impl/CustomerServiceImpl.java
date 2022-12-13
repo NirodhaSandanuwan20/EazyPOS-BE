@@ -10,6 +10,8 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
@@ -34,7 +36,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String findCustomer(String id) {
-        return null;
+       /* Optional<Customer> selectedCustomer = customerRepo.findById(id);
+        if (selectedCustomer.isPresent()){
+            return selectedCustomer.get().toString();
+        }
+        return null;*/
+        return customerRepo.findById(id).orElse(null).toString();
+        //return customerRepo.findById(id);
     }
 
     @Override
