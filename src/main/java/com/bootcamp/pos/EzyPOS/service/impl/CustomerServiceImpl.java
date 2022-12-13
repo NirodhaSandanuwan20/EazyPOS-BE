@@ -17,6 +17,7 @@ import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
+    // Exception
     @Autowired
     private CustomerRepo customerRepo;
     @Autowired
@@ -67,6 +68,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerResponseDto> findAllCustomers() {
+
+        // modalMapper (http://modelmapper.org/) =>
+        // mapstruct (https://mapstruct.org/) => ***
         List<CustomerResponseDto> dtoList = new ArrayList<>();
         List<Customer> list = customerRepo.findAll();
         for (Customer c: list
