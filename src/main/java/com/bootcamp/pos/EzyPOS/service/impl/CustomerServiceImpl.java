@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
-
     @Autowired
     private CustomerRepo customerRepo;
 
@@ -23,7 +22,7 @@ public class CustomerServiceImpl implements CustomerService {
                 "1d",dto.getName(), dto.getAddress(), dto.getSalary()
         );
         customerRepo.save(c1);
-        return c1.getId()+"Saved!";
+        return c1.getId()+" Saved!";
     }
 
     @Override
