@@ -58,7 +58,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String deleteCustomer(String id) {
-        return null;
+        customerRepo.deleteById(id);
+        return id+ " was deleted!";
     }
 
     @Override

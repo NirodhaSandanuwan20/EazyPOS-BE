@@ -29,7 +29,7 @@ public class CustomerController {
 
     @DeleteMapping("/remove/{id}") // http://localhost:8000/api/v1/customer/remove/15 (DELETE)
     public String deleteCustomer(@PathVariable String id) {
-        return id + " - Customer";
+        return customerService.deleteCustomer(id);
     }
 
     @GetMapping("/list") // http://localhost:8000/api/v1/customer/list (GET)
