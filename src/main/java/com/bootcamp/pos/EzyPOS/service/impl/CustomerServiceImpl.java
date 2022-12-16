@@ -25,11 +25,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String saveCustomer(CustomerDto dto) {
-        // kamal => KML==> ( save data -> customer)==> KML-C-1
-        // kamal => KML==> ( save data -> customer)==> KML-C-2
-
-        // Jayantha => JXY==> ( save data -> customer)==> JXY-C-1
-
         Customer c1 = new Customer(
                 idGenerator.generateId(10), dto.getName(), dto.getAddress(), dto.getSalary()
         );
