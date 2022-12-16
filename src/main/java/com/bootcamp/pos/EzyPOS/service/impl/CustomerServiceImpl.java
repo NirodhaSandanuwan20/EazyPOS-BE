@@ -3,6 +3,7 @@ package com.bootcamp.pos.EzyPOS.service.impl;
 import com.bootcamp.pos.EzyPOS.dto.CustomerDto;
 import com.bootcamp.pos.EzyPOS.dto.request.CustomerRequestDto;
 import com.bootcamp.pos.EzyPOS.dto.response.CustomerResponseDto;
+import com.bootcamp.pos.EzyPOS.dto.response.paginate.PaginatedCustomerResponseDto;
 import com.bootcamp.pos.EzyPOS.entity.Customer;
 import com.bootcamp.pos.EzyPOS.repo.CustomerRepo;
 import com.bootcamp.pos.EzyPOS.service.CustomerService;
@@ -30,6 +31,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public String saveCustomer(CustomerRequestDto dto) {
         CustomerDto cDto = new CustomerDto(idGenerator.generateId(10), dto.getName(), dto.getAddress(), dto.getSalary());
+        System.out.println(customerMapper.toCustomer(cDto));
         return customerRepo.save(customerMapper.toCustomer(cDto)).getId()+ " Saved!";
     }
 
@@ -62,16 +64,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerResponseDto> findAllCustomers() {
+    public PaginatedCustomerResponseDto findAllCustomers(
+            String searchText, int page, int size
+    ) {
+        // create method with a custom query=? (find data)
+        // create method with a custom query=? (count)
         return customerMapper.toCustomerResponseDtoList(customerRepo.findAll());
-       /* List<CustomerResponseDto> dtoList = new ArrayList<>();
-        List<Customer> list = customerRepo.findAll();
-        for (Customer c : list
-        ) {
-            dtoList.add(new CustomerResponseDto(
-                    c.getId(), c.getName(), c.getAddress(), c.getSalary()
-            ));
-        }
-        return dtoList;*/
     }
 }

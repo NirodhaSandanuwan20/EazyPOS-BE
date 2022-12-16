@@ -59,8 +59,13 @@ public class CustomerController {
         );
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<StandardResponse> findAllCustomers() {
+    // api/v1/customer/list?searchText=sdf&page=1&size=20
+    @GetMapping(value = "/list", params = {"searchText","page","size"})
+    public ResponseEntity<StandardResponse> findAllCustomers(
+            @RequestParam String searchText,
+            @RequestParam int page,
+            @RequestParam int size
+    ) {
         return new ResponseEntity<>(
                 new StandardResponse(
                         200,
