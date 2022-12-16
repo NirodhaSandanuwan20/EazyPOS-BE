@@ -12,10 +12,11 @@ import java.util.List;
 @EnableJpaRepositories
 public interface CustomerRepo extends JpaRepository<Customer, String> {
 
-    @Query(value = "SELECT * FROM customer WHERE name LIKE%?% OR address LIKE%?%",nativeQuery = true)
+    @Query(value = "SELECT * FROM customer",nativeQuery = true)
     public List<Customer> searchCustomer(String searchText, Pageable pageable);
-
-    @Query(value = "SELECT COUNT(id) customer WHERE name LIKE%?% OR address LIKE%?%",nativeQuery = true)
-    public int searchCustomer(String searchText);
-
+/* WHERE name LIKE%?0% OR address LIKE%?0%*/
+    @Query(value = "SELECT COUNT(id) FROM customer",
+            nativeQuery = true)
+    public long countCustomer(String searchText);
+/* WHERE name LIKE %?0% OR address LIKE %?0%*/
 }

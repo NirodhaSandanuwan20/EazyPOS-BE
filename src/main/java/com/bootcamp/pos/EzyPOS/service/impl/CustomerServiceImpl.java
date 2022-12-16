@@ -10,6 +10,8 @@ import com.bootcamp.pos.EzyPOS.service.CustomerService;
 import com.bootcamp.pos.EzyPOS.util.IdGenerator;
 import com.bootcamp.pos.EzyPOS.util.mapper.CustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -69,6 +71,11 @@ public class CustomerServiceImpl implements CustomerService {
     ) {
         // create method with a custom query=? (find data)
         // create method with a custom query=? (count)
-        return customerMapper.toCustomerResponseDtoList(customerRepo.findAll());
+        return new PaginatedCustomerResponseDto(
+                customerRepo.countCustomer(searchText),
+                customerMapper.toCustomerResponseDtoList(customerRepo.searchCustomer(
+                        searchText, PageRequest.of(page, size)
+                ))
+        );
     }
 }

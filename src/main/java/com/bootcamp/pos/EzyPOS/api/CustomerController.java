@@ -70,7 +70,7 @@ public class CustomerController {
                 new StandardResponse(
                         200,
                         "Data List!",
-                        customerService.findAllCustomers()
+                        customerService.findAllCustomers(searchText, page, size)
                 ), HttpStatus.OK
         );
     }
