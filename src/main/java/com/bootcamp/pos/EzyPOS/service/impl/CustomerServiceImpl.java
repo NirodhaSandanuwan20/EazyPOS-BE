@@ -34,31 +34,34 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public String findCustomer(String id) {
+    public CustomerResponseDto findCustomer(String id) {
        /* Optional<Customer> selectedCustomer = customerRepo.findById(id);
         if (selectedCustomer.isPresent()){
             return selectedCustomer.get().toString();
         }
         return null;*/
-        return customerRepo.findById(id).orElse(null).toString();
+        Customer c = customerRepo.findById(id).orElse(null);
+        return new CustomerResponseDto(
+                c.getId(),c.getName(),c.getAddress(),c.getSalary()
+        );
         //return customerRepo.findById(id);
     }
 
     @Override
     public String updateCustomer(CustomerDto dto, String id) {
         Customer c = customerRepo.findById(id).orElse(null);
-        if (null==c) return "Not found";
+        if (null == c) return "Not found";
         c.setName(dto.getName());
         c.setAddress(dto.getAddress());
         c.setSalary(dto.getSalary());
         customerRepo.save(c); // update
-        return c.getName()+" was Updated!";
+        return c.getName() + " was Updated!";
     }
 
     @Override
     public String deleteCustomer(String id) {
         customerRepo.deleteById(id);
-        return id+ " was deleted!";
+        return id + " was deleted!";
     }
 
     @Override
@@ -68,10 +71,10 @@ public class CustomerServiceImpl implements CustomerService {
         // mapstruct (https://mapstruct.org/) => ***
         List<CustomerResponseDto> dtoList = new ArrayList<>();
         List<Customer> list = customerRepo.findAll();
-        for (Customer c: list
-             ) {
+        for (Customer c : list
+        ) {
             dtoList.add(new CustomerResponseDto(
-                    c.getId(),c.getName(),c.getAddress(),c.getSalary()
+                    c.getId(), c.getName(), c.getAddress(), c.getSalary()
             ));
         }
         return dtoList;
