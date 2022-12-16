@@ -31,7 +31,7 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StandardResponse> findCustomer(@PathVariable String id) {
+    public ResponseEntity<StandardResponse> findCustomer(@PathVariable String id) throws ClassNotFoundException {
         return new ResponseEntity<>(
                 new StandardResponse(
                         200,
