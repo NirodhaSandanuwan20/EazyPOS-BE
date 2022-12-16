@@ -1,16 +1,12 @@
 package com.bootcamp.pos.EzyPOS.api;
 
-import com.bootcamp.pos.EzyPOS.dto.request.CustomerDto;
-import com.bootcamp.pos.EzyPOS.dto.response.CustomerResponseDto;
+import com.bootcamp.pos.EzyPOS.dto.request.CustomerRequestDto;
 import com.bootcamp.pos.EzyPOS.service.CustomerService;
 import com.bootcamp.pos.EzyPOS.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/customer")
@@ -20,7 +16,7 @@ public class CustomerController {
     private CustomerService customerService;
 
     @PostMapping(value = "/create")
-    public ResponseEntity<StandardResponse> save(@RequestBody CustomerDto dto) {
+    public ResponseEntity<StandardResponse> save(@RequestBody CustomerRequestDto dto) {
         return new ResponseEntity<>(
                 new StandardResponse(
                         201,
@@ -42,7 +38,7 @@ public class CustomerController {
     }
 
     @PutMapping(value = "/modify", params = {"id"})
-    public ResponseEntity<StandardResponse> updateCustomer(@RequestBody CustomerDto dto, @RequestParam String id) {
+    public ResponseEntity<StandardResponse> updateCustomer(@RequestBody CustomerRequestDto dto, @RequestParam String id) {
         return new ResponseEntity<>(
                 new StandardResponse(
                         201,
