@@ -12,7 +12,7 @@ import java.util.List;
 @EnableJpaRepositories
 public interface CustomerRepo extends JpaRepository<Customer, String> {
 
-    @Query(value = "SELECT * FROM customer WHERE name LIKE %?1% || address LIKE %?1%",nativeQuery = true)
+    @Query(value = "SELECT id,name FROM customer WHERE name LIKE %?1% || address LIKE %?1%",nativeQuery = true)
     public List<Customer> searchCustomer(String searchText, Pageable pageable);
 /* */
     @Query(value = "SELECT COUNT(id) FROM customer WHERE name LIKE %?1% || address LIKE %?1%",
