@@ -1,11 +1,13 @@
 package com.bootcamp.pos.EzyPOS.service.impl;
 
+import com.bootcamp.pos.EzyPOS.dto.CustomerDto;
 import com.bootcamp.pos.EzyPOS.dto.request.CustomerRequestDto;
 import com.bootcamp.pos.EzyPOS.dto.response.CustomerResponseDto;
 import com.bootcamp.pos.EzyPOS.entity.Customer;
 import com.bootcamp.pos.EzyPOS.repo.CustomerRepo;
 import com.bootcamp.pos.EzyPOS.service.CustomerService;
 import com.bootcamp.pos.EzyPOS.util.IdGenerator;
+import com.bootcamp.pos.EzyPOS.util.mapper.CustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,17 +19,17 @@ public class CustomerServiceImpl implements CustomerService {
     // Exception
     @Autowired
     private CustomerRepo customerRepo;
+
     @Autowired
     private IdGenerator idGenerator;
 
+    @Autowired
+    private CustomerMapper customerMapper;
+
     @Override
     public String saveCustomer(CustomerRequestDto dto) {
-        Customer c1 = new Customer(
-                idGenerator.generateId(10), dto.getName(), dto.getAddress(), dto.getSalary()
-        );
-
-        customerRepo.save(c1);
-        return c1.getId() + " Saved!";
+        CustomerDto cDto = new CustomerDto(idGenerator.generateId(10), dto.getName(), dto.getAddress(), dto.getSalary());
+        return customerRepo.save(customerMapper.toCustomer(cDto)).getId()+ " Saved!";
     }
 
     @Override
