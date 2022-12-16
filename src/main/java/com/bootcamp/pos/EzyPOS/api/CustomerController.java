@@ -6,6 +6,7 @@ import com.bootcamp.pos.EzyPOS.service.CustomerService;
 import com.bootcamp.pos.EzyPOS.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,36 +19,62 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @PostMapping("/create") // http://localhost:8000/api/v1/customer/create (POST)
+    @PostMapping(
+            value = "/create",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
+    )
     public ResponseEntity<StandardResponse> save(@RequestBody CustomerDto dto) {
         return new ResponseEntity<>(
                 new StandardResponse(
-                        201/*????*/,
+                        201,
                         customerService.saveCustomer(dto),
                         null
                 ), HttpStatus.CREATED
         );
     }
 
-   /* @GetMapping("/{id}") // http://localhost:8000/api/v1/customer/15 (GET)
+    @GetMapping("/{id}")
     public ResponseEntity<StandardResponse> findCustomer(@PathVariable String id) {
-        return customerService.findCustomer(id);
+        return new ResponseEntity<>(
+                new StandardResponse(
+                        200,
+                        id+" details!",
+                        customerService.findCustomer(id)
+                ), HttpStatus.OK
+        );
     }
 
-    @PutMapping(value = "/modify", params = {"id"}) // http://localhost:8000/api/v1/customer/modify?id=15 (PUT)
+    @PutMapping(value = "/modify", params = {"id"})
     public ResponseEntity<StandardResponse> updateCustomer(@RequestBody CustomerDto dto, @RequestParam String id) {
-        return customerService.updateCustomer(dto, id);
+        return new ResponseEntity<>(
+                new StandardResponse(
+                        201,
+                        customerService.updateCustomer(dto, id),
+                        null
+                ), HttpStatus.CREATED
+        );
     }
 
-    @DeleteMapping("/remove/{id}") // http://localhost:8000/api/v1/customer/remove/15 (DELETE)
+    @DeleteMapping("/remove/{id}")
     public ResponseEntity<StandardResponse> deleteCustomer(@PathVariable String id) {
-        return customerService.deleteCustomer(id);
+        return new ResponseEntity<>(
+                new StandardResponse(
+                        204,
+                        customerService.deleteCustomer(id),
+                        null
+                ), HttpStatus.NO_CONTENT
+        );
     }
 
-    @GetMapping("/list") // http://localhost:8000/api/v1/customer/list (GET)
+    @GetMapping("/list")
     public ResponseEntity<StandardResponse> findAllCustomers() {
-        return customerService.findAllCustomers();
+        return new ResponseEntity<>(
+                new StandardResponse(
+                        200,
+                        "Data List!",
+                        customerService.findAllCustomers()
+                ), HttpStatus.OK
+        );
     }
-*/
-
 }
