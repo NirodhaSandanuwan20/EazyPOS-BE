@@ -12,10 +12,6 @@ import java.util.List;
 @RequestMapping("/api/v1/customer")
 public class CustomerController {
 
-    // Standard response Entities
-    // custom queries
-    // transaction
-
     @Autowired
     private CustomerService customerService;
 
