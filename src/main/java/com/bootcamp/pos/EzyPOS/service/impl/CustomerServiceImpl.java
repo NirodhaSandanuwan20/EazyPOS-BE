@@ -69,6 +69,7 @@ public class CustomerServiceImpl implements CustomerService {
     public PaginatedCustomerResponseDto findAllCustomers(
             String searchText, int page, int size
     ) {
+
         // create method with a custom query=? (find data)
         // create method with a custom query=? (count)
         return new PaginatedCustomerResponseDto(
